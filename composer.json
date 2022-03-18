@@ -1,0 +1,22 @@
+{
+    "name": "legrisch/statamic-graphl-events",
+    "autoload": {
+        "psr-4": {
+            "Legrisch\\StatamicGraphlEvents\\": "src"
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Statamic Graphl Events",
+            "description": "Statamic Graphl Events addon"
+        },
+        "laravel": {
+            "providers": [
+                "Legrisch\\StatamicGraphlEvents\\ServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "rlanvin/php-rrule": "^2.3"
+    }
+}
