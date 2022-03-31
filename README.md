@@ -113,9 +113,9 @@ Returns the occurrences of an event starting from the first occurrence.
 
 ```graphql
 occurrences(limit: 10) {
-  allDay
-  end
   start
+  end
+  allDay
 }
 ```
 
@@ -127,9 +127,9 @@ Returns the occurrences of an event starting from a provided date.
 
 ```graphql
 occurrencesAfter(after: "1. April 2022", limit: 10) {
-  allDay
-  end
   start
+  end
+  allDay
 }
 ```
 
@@ -141,9 +141,9 @@ Returns the occurrences of an event starting from now.
 
 ```graphql
 occurrencesAfterNow(limit: 10) {
-  allDay
-  end
   start
+  end
+  allDay
 }
 ```
 
@@ -156,8 +156,8 @@ Returns the occurrences of an event between two provided dates.
 ```graphql
 occurrencesBetween(from: "1. March 2022", to: "1. April 2022") {
   start
-  allDay
   end
+  allDay
 }
 ```
 
