@@ -5,7 +5,7 @@
 ## How to Install
 
 ``` bash
-composer require legrisch/statamic-graphl-events
+composer require legrisch/statamic-graphql-events
 ```
 
 ## Setup
