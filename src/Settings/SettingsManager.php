@@ -11,6 +11,7 @@ use Statamic\Support\FileCollection;
 
 class SettingsManager
 {
+  private bool|null $isConfigured = null;
   private string|null $graphQLEntryTypeName = null;
   private Collection|null $collection = null;
   private QueryBuilder|EntryQueryBuilder|null $queryBuilder = null;
@@ -28,8 +29,30 @@ class SettingsManager
     return $inst;
   }
 
-  public static function graphQlTypeName(): string
+  public static function isConfigured(): bool
   {
+    if (!is_null(SettingsManager::getInstance()->isConfigured)) {
+      return SettingsManager::getInstance()->isConfigured;
+    }
+
+    $isConfigured = false;
+
+    $collection = CollectionFacade::findByHandle(config('statamic.graphql-events.collection'));
+    if ($collection) {
+      $blueprints = $collection->entryBlueprints();
+      $blueprintHandle = config('statamic.graphql-events.blueprint');
+      $blueprint = $blueprints->where('handle', $blueprintHandle)->first();
+      if ($blueprint) $isConfigured = true;
+    }
+
+    SettingsManager::getInstance()->isConfigured = $isConfigured;
+    return SettingsManager::getInstance()->isConfigured;
+  }
+
+  public static function graphQlTypeName(): string|null
+  {
+    if (!SettingsManager::isConfigured()) return null;
+
     if (SettingsManager::getInstance()->graphQLEntryTypeName) {
       return SettingsManager::getInstance()->graphQLEntryTypeName;
     }
@@ -42,12 +65,13 @@ class SettingsManager
     $blueprint = $blueprints->where('handle', $blueprintHandle)->first();
     $graphQLEntryTypeName = EntryType::buildName($collection, $blueprint);
     SettingsManager::getInstance()->graphQLEntryTypeName = $graphQLEntryTypeName;
-
     return SettingsManager::getInstance()->graphQLEntryTypeName;
   }
 
-  public static function collection(): Collection
+  public static function collection(): Collection|null
   {
+    if (!SettingsManager::isConfigured()) return null;
+
     if (SettingsManager::getInstance()->collection) {
       return SettingsManager::getInstance()->collection;
     }
@@ -56,8 +80,10 @@ class SettingsManager
     return SettingsManager::getInstance()->collection;
   }
 
-  public static function query(): QueryBuilder|EntryQueryBuilder
+  public static function query(): QueryBuilder|EntryQueryBuilder|null
   {
+    if (!SettingsManager::isConfigured()) return null;
+
     if (SettingsManager::getInstance()->queryBuilder) {
       return SettingsManager::getInstance()->queryBuilder;
     }

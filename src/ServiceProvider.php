@@ -7,6 +7,7 @@ use Legrisch\StatamicGraphQLEvents\Queries\EventsAfterNowQuery;
 use Legrisch\StatamicGraphQLEvents\Queries\EventsAfterQuery;
 use Legrisch\StatamicGraphQLEvents\Queries\EventsBetweenQuery;
 use Legrisch\StatamicGraphQLEvents\RRule\OccurrenceType;
+use Legrisch\StatamicGraphQLEvents\Settings\SettingsManager;
 use Statamic\Facades\GraphQL;
 use Statamic\Providers\AddonServiceProvider;
 
@@ -26,12 +27,14 @@ class ServiceProvider extends AddonServiceProvider
       __DIR__ . '/../fieldset/dates.yaml' => resource_path('fieldsets/dates.yaml'),
     ], 'statamic.graphql-events');
 
-    GraphQL::addType(OccurrenceType::class);
+    if (SettingsManager::isConfigured()) {
+      GraphQL::addType(OccurrenceType::class);
 
-    GraphQL::addQuery(EventsAfterNowQuery::class);
-    GraphQL::addQuery(EventsAfterQuery::class);
-    GraphQL::addQuery(EventsBetweenQuery::class);
+      GraphQL::addQuery(EventsAfterNowQuery::class);
+      GraphQL::addQuery(EventsAfterQuery::class);
+      GraphQL::addQuery(EventsBetweenQuery::class);
 
-    FieldsManager::addFields();
+      FieldsManager::addFields();
+    }
   }
 }
