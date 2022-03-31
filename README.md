@@ -4,6 +4,12 @@ Statamic GraphQL Events is a [Statamic](https://statamic.com/) addon that provid
 
 ---
 
+## Features
+
+- GraphQL queries & fields for Recurring events
+- Infinitely complex recurrence rules
+- Easy to set up
+
 ## How to Install
 
 ``` bash
@@ -26,6 +32,8 @@ composer require legrisch/statamic-graphql-events
 ### Queries
 
 > Fields and Queries that use dates as an input accept everything that `Carbon::parse` accepts.
+
+All query results are sorted by the first occurrence in the given timeframe.
 
 #### `eventsAfter`
 
