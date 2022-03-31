@@ -1,4 +1,4 @@
-# Statamic GraphQL Responsive Images <!-- omit in toc -->
+# Statamic GraphQL Events
 
 Statamic GraphQL Events is a [Statamic](https://statamic.com/) addon that provides a fieldset and the corresponding GraphQL Queries and fields to handle recurring events with ease.
 
