@@ -1,16 +1,28 @@
-# Statamic GraphQL Events
+# Statamic GraphQL Events <!-- omit in toc -->
 
 Statamic GraphQL Events is a [Statamic](https://statamic.com/) addon that provides a fieldset and the corresponding GraphQL Queries and fields to handle recurring events with ease.
 
----
-
-## Features
-
-- GraphQL queries & fields for Recurring events
+- GraphQL queries & fields for recurring events
 - Infinitely complex recurrence rules
 - Easy to set up
 
-## How to Install
+### Index <!-- omit in toc -->
+
+- [Install](#install)
+- [Setup](#setup)
+- [How to Use](#how-to-use)
+  - [Queries](#queries)
+    - [`eventsAfter`](#eventsafter)
+    - [`eventsAfterNow`](#eventsafternow)
+    - [`eventsBetween`](#eventsbetween)
+  - [Fields](#fields)
+    - [`occurrences`](#occurrences)
+    - [`occurrencesAfter`](#occurrencesafter)
+    - [`occurrencesAfterNow`](#occurrencesafternow)
+    - [`occurrencesBetween`](#occurrencesbetween)
+- [License](#license)
+
+## Install
 
 ``` bash
 composer require legrisch/statamic-graphql-events
@@ -20,7 +32,7 @@ composer require legrisch/statamic-graphql-events
 
 > This addon assumes that you want to use a single collection and entries of a single blueprint as the source of your events.
 
-- Run `php artisan vendor:publish --tag=statamic.graphql-events --force` to publish the addon configuration along with the provided fieldset "Dates".
+- Run `php artisan vendor:publish --tag=statamic.graphql-events --force` to publish the configuration along with the provided fieldset "Dates".
 - Add the provided fieldset "Dates" to a blueprint. You may translate the fields to your liking, be sure to keep the
   handles.
 - Edit the addon configuration: `config/statamic/graphql-events.php`.
@@ -39,7 +51,7 @@ All query results are sorted by the first occurrence in the given timeframe.
 
 Returns events that have occurrences after a certain date.
 
-##### Example
+##### Example <!-- omit in toc --> <!-- omit in toc -->
 
 ```graphql
 query MyQuery {
@@ -57,7 +69,7 @@ query MyQuery {
 
 Returns events that have occurrences after now.
 
-##### Example
+##### Example <!-- omit in toc --> <!-- omit in toc -->
 
 ```graphql
 query MyQuery {
@@ -75,7 +87,7 @@ query MyQuery {
 
 Returns events that have occurrences between two provided dates.
 
-##### Example
+##### Example <!-- omit in toc --> <!-- omit in toc -->
 
 ```graphql
 query MyQuery {
@@ -97,7 +109,7 @@ Besides the queries, this addon adds fields to the GraphQL type of your entries.
 
 Returns the occurrences of an event starting from the first occurrence.
 
-#### Example
+##### Example <!-- omit in toc -->
 
 ```graphql
 occurrences(limit: 10) {
@@ -111,7 +123,7 @@ occurrences(limit: 10) {
 
 Returns the occurrences of an event starting from a provided date.
 
-#### Example
+##### Example <!-- omit in toc -->
 
 ```graphql
 occurrencesAfter(after: "1. April 2022", limit: 10) {
@@ -125,7 +137,7 @@ occurrencesAfter(after: "1. April 2022", limit: 10) {
 
 Returns the occurrences of an event starting from now.
 
-#### Example
+##### Example <!-- omit in toc -->
 
 ```graphql
 occurrencesAfterNow(limit: 10) {
@@ -139,7 +151,7 @@ occurrencesAfterNow(limit: 10) {
 
 Returns the occurrences of an event between two provided dates.
 
-#### Example
+##### Example <!-- omit in toc -->
 
 ```graphql
 occurrencesBetween(from: "1. March 2022", to: "1. April 2022") {
