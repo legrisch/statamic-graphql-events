@@ -1,0 +1,33 @@
+{
+  "name": "legrisch/statamic-graphql-events",
+  "description": "A Statamic addon that provides a fieldset and the corresponding GraphQL Queries and fields to handle recurring events with ease.",
+  "type": "statamic-addon",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Grischa Erbe",
+      "email": "grischa.erbe@googlemail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Legrisch\\StatamicGraphQLEvents\\": "src"
+    }
+  },
+  "extra": {
+    "statamic": {
+      "name": "Statamic GraphQL Events",
+      "description": "Statamic Graphl Events addon"
+    },
+    "laravel": {
+      "providers": [
+        "Legrisch\\StatamicGraphQLEvents\\ServiceProvider"
+      ]
+    }
+  },
+  "require": {
+    "php": "^8.0",
+    "statamic/cms": "^3.3",
+    "rlanvin/php-rrule": "^2.3"
+  }
+}

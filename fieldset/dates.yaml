@@ -1,0 +1,149 @@
+title: Dates
+fields:
+  - handle: dates
+    field:
+      collapse: false
+      sets:
+        termin:
+          display: Date
+          fields:
+            - handle: date_start
+              field:
+                mode: single
+                time_enabled: false
+                time_required: false
+                format: c
+                full_width: false
+                inline: false
+                columns: 1
+                rows: 1
+                display: Date
+                type: date
+                icon: date
+                listable: hidden
+                instructions_position: above
+                validate:
+                  - required
+                width: 25
+            - handle: all_day
+              field:
+                default: false
+                display: All day
+                type: toggle
+                icon: toggle
+                width: 25
+                listable: hidden
+                instructions_position: above
+                validate:
+                  - required
+            - handle: gap
+              field:
+                type: html
+                icon: html
+                listable: hidden
+                instructions_position: above
+                width: 50
+                display: ㅤ
+                if:
+                  all_day: 'equals true'
+            - handle: date_time_start
+              field:
+                display: 'Time start'
+                type: time
+                icon: time
+                width: 25
+                listable: hidden
+                instructions_position: above
+                default: '12:00'
+                if:
+                  all_day: 'equals false'
+            - handle: date_time_end
+              field:
+                display: 'Time end'
+                type: time
+                icon: time
+                width: 25
+                listable: hidden
+                instructions_position: above
+                if:
+                  all_day: 'equals false'
+            - handle: recurrence_frequency
+              field:
+                options:
+                  none: 'Not repeating'
+                  daily: Daily
+                  weekly: Weekly
+                  monthly: Monthly
+                  yearly: Yearly
+                  custom: 'Repeat every …'
+                multiple: false
+                clearable: false
+                searchable: true
+                taggable: false
+                push_tags: false
+                cast_booleans: false
+                display: Recurrence
+                type: select
+                icon: select
+                listable: hidden
+                instructions_position: above
+                default: none
+                width: 33
+            - handle: recurrence_custom_interval
+              field:
+                default: '1'
+                display: Interval
+                type: integer
+                icon: integer
+                listable: hidden
+                instructions_position: above
+                width: 33
+                validate:
+                  - 'min:1'
+                if:
+                  recurrence_frequency: 'equals custom'
+            - handle: recurrence_custom_period
+              field:
+                options:
+                  daily: Days
+                  weekly: Weeks
+                  monthly: Months
+                  yearly: Years
+                multiple: false
+                clearable: false
+                searchable: true
+                taggable: false
+                push_tags: false
+                cast_booleans: false
+                default: daily
+                display: Period
+                type: select
+                icon: select
+                listable: hidden
+                instructions_position: above
+                width: 33
+                if:
+                  recurrence_frequency: 'equals custom'
+            - handle: recurrence_until
+              field:
+                mode: single
+                time_enabled: false
+                time_required: false
+                format: c
+                full_width: false
+                inline: false
+                columns: 1
+                rows: 1
+                display: 'Repeat until'
+                type: date
+                icon: date
+                listable: hidden
+                instructions_position: above
+                width: 33
+                if:
+                  recurrence_frequency: 'not none'
+      display: Dates
+      type: replicator
+      icon: replicator
+      listable: hidden
+      instructions_position: above
