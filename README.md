@@ -12,28 +12,20 @@ composer require legrisch/statamic-graphql-events
 
 ## Setup
 
-This addon needs to be configured. To publish the configuration and the fieldset that comes with the addon, run
+> This addon assumes that you want to use a single collection and entries of a single blueprint as the source of your events.
 
-```bash
-php artisan vendor:publish --tag=statamic.graphql-events --force
-```
-
-and see *config → statamic → graphql-events* for configuration options.
+- Run `php artisan vendor:publish --tag=statamic.graphql-events --force` to publish the addon configuration along with the provided fieldset "Dates".
+- Add the provided fieldset "Dates" to a blueprint. You may translate the fields to your liking, be sure to keep the
+  handles.
+- Edit the addon configuration: `config/statamic/graphql-events.php`.
+- Open the GraphiQL Editor.
+- You should see three new queries: `eventsAfter`, `eventsAfterNow` and `eventsBetween`.
 
 ## How to Use
 
-> This addon assumes that you want to use a single collection and entries of a single blueprint as the source of your events.
-
-- Run `php artisan vendor:publish --tag=statamic.graphql-events --force` if not already done.
-- Add the provided fieldset "Dates" to a blueprint. (You may translate the fieldset to your liking, be sure to keep the
-  handles)
-- Edit the addon configuration.
-- Open the GraphiQL Editor
-- You should see three new queries: `eventsAfter`, `eventsAfterNow` and `eventsBetween`.
+### Queries
 
 > Fields and Queries that use dates as an input accept everything that `Carbon::parse` accepts.
-
-### Queries
 
 #### `eventsAfter`
 
