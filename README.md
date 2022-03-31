@@ -11,6 +11,7 @@ Statamic GraphQL Events is a [Statamic](https://statamic.com/) addon that provid
 - [Install](#install)
 - [Setup](#setup)
 - [How to Use](#how-to-use)
+  - [Concepts](#concepts)
   - [Queries](#queries)
     - [`eventsAfter`](#eventsafter)
     - [`eventsAfterNow`](#eventsafternow)
@@ -40,6 +41,12 @@ composer require legrisch/statamic-graphql-events
 - You should see three new queries: `eventsAfter`, `eventsAfterNow` and `eventsBetween`.
 
 ## How to Use
+
+### Concepts
+
+An event may have an arbitrary amount of recurrence rules, however there are two limitations:
+- If an event is not marked as happening "all day", a start time is required.
+- If an event is marked as recurring, a date which defines the end of the recurrence is required.
 
 ### Queries
 
