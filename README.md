@@ -35,7 +35,7 @@ and see *config → statamic → graphql-events* for configuration options.
 
 ### Queries
 
-#### eventsAfter
+#### `eventsAfter`
 
 Returns events that have occurrences after a certain date.
 
@@ -53,7 +53,7 @@ query MyQuery {
 }
 ```
 
-#### eventsAfterNow
+#### `eventsAfterNow`
 
 Returns events that have occurrences after now.
 
@@ -71,7 +71,7 @@ query MyQuery {
 }
 ```
 
-#### eventsBetween
+#### `eventsBetween`
 
 Returns events that have occurrences between two provided dates.
 
@@ -93,7 +93,7 @@ query MyQuery {
 
 Besides the queries, this addon adds fields to the GraphQL type of your entries.
 
-#### occurrences
+#### `occurrences`
 
 Returns the occurrences of an event starting from the first occurrence.
 
@@ -107,7 +107,7 @@ occurrences(limit: 10) {
 }
 ```
 
-#### occurrencesAfter
+#### `occurrencesAfter`
 
 Returns the occurrences of an event starting from a provided date.
 
@@ -121,7 +121,7 @@ occurrencesAfter(after: "1. April 2022", limit: 10) {
 }
 ```
 
-#### occurrencesAfterNow
+#### `occurrencesAfterNow`
 
 Returns the occurrences of an event starting from now.
 
@@ -135,7 +135,7 @@ occurrencesAfterNow(limit: 10) {
 }
 ```
 
-#### occurrencesBetween
+#### `occurrencesBetween`
 
 Returns the occurrences of an event between two provided dates.
 
