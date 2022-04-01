@@ -1,6 +1,7 @@
 # Statamic GraphQL Events <!-- omit in toc -->
 
-Statamic GraphQL Events is a [Statamic](https://statamic.com/) addon that provides a fieldset and the corresponding GraphQL Queries and fields to handle recurring events with ease.
+Statamic GraphQL Events is a [Statamic](https://statamic.com/) addon that provides a fieldset and the corresponding
+GraphQL Queries and fields to handle recurring events with ease.
 
 - GraphQL queries & fields for recurring events
 - Infinitely complex recurrence rules
@@ -33,7 +34,8 @@ composer require legrisch/statamic-graphql-events
 
 > This addon assumes that you want to use a single collection and entries of a single blueprint as the source of your events.
 
-- Run `php artisan vendor:publish --tag=statamic.graphql-events --force` to publish the configuration along with the provided fieldset "Dates".
+- Run `php artisan vendor:publish --tag=statamic.graphql-events --force` to publish the configuration along with the
+  provided fieldset "Dates".
 - Add the provided fieldset "Dates" to a blueprint. You may translate the fields to your liking, be sure to keep the
   handles.
 - Edit the addon configuration: `config/statamic/graphql-events.php`.
@@ -45,6 +47,7 @@ composer require legrisch/statamic-graphql-events
 ### Concepts
 
 An event may have an arbitrary amount of recurrence rules, however there are two limitations:
+
 - If an event is not marked as happening "all day", a start time is required.
 - If an event is marked as recurring, a date which defines the end of the recurrence is required.
 

@@ -8,15 +8,14 @@ use Legrisch\StatamicGraphQLEvents\RRule\EventDates;
 use Legrisch\StatamicGraphQLEvents\Settings\SettingsManager;
 use Statamic\Entries\Entry as EntryType;
 use Statamic\Facades\GraphQL;
+use Statamic\GraphQL\Queries\Concerns\FiltersQuery;
 use Statamic\GraphQL\Queries\Query;
 use Statamic\GraphQL\Types\JsonArgument;
-use Statamic\Support\Arr;
-use Statamic\Tags\Concerns\QueriesConditions;
 
 class EventsAfterQuery extends Query
 {
 
-  use QueriesConditions;
+  use FiltersQuery;
 
   protected $attributes = [
     'name' => 'eventsAfter',
@@ -57,30 +56,5 @@ class EventsAfterQuery extends Query
       if ($occurrenceA->start === $occurrenceB->start) return 0;
       return $occurrenceA->start < $occurrenceB->start ? -1 : 1;
     })->splice(0, $args["limit"] ?? null);
-  }
-
-  private function filterQuery($query, $filters)
-  {
-    if (!isset($filters['status']) && !isset($filters['published'])) {
-      $filters['status'] = 'published';
-    }
-
-    foreach ($filters as $field => $definitions) {
-      if (!is_array($definitions)) {
-        $definitions = [['equals' => $definitions]];
-      }
-
-      if (Arr::assoc($definitions)) {
-        $definitions = collect($definitions)->map(function ($value, $key) {
-          return [$key => $value];
-        })->values()->all();
-      }
-
-      foreach ($definitions as $definition) {
-        $condition = array_keys($definition)[0];
-        $value = array_values($definition)[0];
-        $this->queryCondition($query, $field, $condition, $value);
-      }
-    }
   }
 }

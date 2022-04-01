@@ -8,16 +8,14 @@ use Legrisch\StatamicGraphQLEvents\RRule\EventDates;
 use Legrisch\StatamicGraphQLEvents\Settings\SettingsManager;
 use Statamic\Entries\Entry as EntryType;
 use Statamic\Facades\GraphQL;
+use Statamic\GraphQL\Queries\Concerns\FiltersQuery;
 use Statamic\GraphQL\Queries\Query;
 use Statamic\GraphQL\Types\JsonArgument;
-use Statamic\Support\Arr;
-use Statamic\Support\Str;
-use Statamic\Tags\Concerns\QueriesConditions;
 
 class EventsBetweenQuery extends Query
 {
 
-  use QueriesConditions;
+  use FiltersQuery;
 
   protected $attributes = [
     'name' => 'eventsBetween',
@@ -39,7 +37,6 @@ class EventsBetweenQuery extends Query
         "type" => GraphQL::type("String!"),
       ],
       'filter' => GraphQL::type(JsonArgument::NAME),
-      'sort' => GraphQL::type("String"),
     ];
   }
 
@@ -49,7 +46,6 @@ class EventsBetweenQuery extends Query
     $query = SettingsManager::query();
 
     $this->filterQuery($query, $args['filter'] ?? []);
-    $this->sortQuery($query, $args['sort'] ?? []);
 
     /** @var EventDates[] $eventDates */
     $eventDates = [];
@@ -63,47 +59,5 @@ class EventsBetweenQuery extends Query
       if ($occurrenceA->start === $occurrenceB->start) return 0;
       return $occurrenceA->start < $occurrenceB->start ? -1 : 1;
     });
-  }
-
-  private function filterQuery($query, $filters)
-  {
-    if (!isset($filters['status']) && !isset($filters['published'])) {
-      $filters['status'] = 'published';
-    }
-
-    foreach ($filters as $field => $definitions) {
-      if (!is_array($definitions)) {
-        $definitions = [['equals' => $definitions]];
-      }
-
-      if (Arr::assoc($definitions)) {
-        $definitions = collect($definitions)->map(function ($value, $key) {
-          return [$key => $value];
-        })->values()->all();
-      }
-
-      foreach ($definitions as $definition) {
-        $condition = array_keys($definition)[0];
-        $value = array_values($definition)[0];
-        $this->queryCondition($query, $field, $condition, $value);
-      }
-    }
-  }
-
-  private function sortQuery($query, $sorts)
-  {
-    if (empty($sorts)) {
-      $sorts = ['id'];
-    }
-
-    foreach ($sorts as $sort) {
-      $order = 'asc';
-
-      if (Str::contains($sort, ' ')) {
-        [$sort, $order] = explode(' ', $sort);
-      }
-
-      $query->orderBy($sort, $order);
-    }
   }
 }

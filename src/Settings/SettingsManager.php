@@ -5,6 +5,7 @@ namespace Legrisch\StatamicGraphQLEvents\Settings;
 use Statamic\Contracts\Entries\QueryBuilder;
 use Statamic\Entries\Collection;
 use Statamic\Facades\Collection as CollectionFacade;
+use Statamic\Facades\Entry;
 use Statamic\GraphQL\Types\EntryType;
 use Statamic\Stache\Query\EntryQueryBuilder;
 use Statamic\Support\FileCollection;
@@ -87,9 +88,11 @@ class SettingsManager
     if (SettingsManager::getInstance()->queryBuilder) {
       return SettingsManager::getInstance()->queryBuilder;
     }
-    $collection = SettingsManager::collection();
-    $query = $collection->queryEntries();
-    $queryBuilder = $query->where('blueprint', config('statamic.graphql-events.blueprint'))->where('published', true);
+
+    $queryBuilder = Entry::query()
+      ->where('collection', config('statamic.graphql-events.collection'))
+      ->where('blueprint', config('statamic.graphql-events.blueprint'));
+
     SettingsManager::getInstance()->queryBuilder = $queryBuilder;
     return $queryBuilder;
   }
