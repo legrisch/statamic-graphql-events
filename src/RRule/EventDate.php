@@ -13,8 +13,8 @@ class EventDate
   public string|null $dateTimeStart;
   public string|null $dateTimeEnd;
   public string $recurrenceFrequency;
-  public int $recurrenceCustomInterval;
-  public string $recurrenceCustomPeriod;
+  public int|null $recurrenceCustomInterval;
+  public string|null $recurrenceCustomPeriod;
   public Carbon|null $recurrenceUntil;
 
   public function __construct($eventData)
@@ -23,7 +23,7 @@ class EventDate
     $this->allDay = $eventData->all_day;
     $this->dateTimeStart = $eventData->date_time_start;
     $this->dateTimeEnd = $eventData->date_time_end;
-    $this->recurrenceFrequency = $eventData->recurrence_frequency;
+    $this->recurrenceFrequency = $eventData->recurrence_frequency ?? "none";
     $this->recurrenceCustomInterval = $eventData->recurrence_custom_interval;
     $this->recurrenceCustomPeriod = $eventData->recurrence_custom_period;
 
@@ -39,6 +39,12 @@ class EventDate
 
     /* Event is set to repeat but not for how long */
     if ($this->recurrenceFrequency !== "none" && !$this->recurrenceUntil) return false;
+
+    /* Event is set to repeat in a custom way but no interval is provided */
+    if ($this->recurrenceFrequency === "custom" && !$this->recurrenceCustomInterval) return false;
+
+    /* Event is set to repeat in a custom way but no period is provided */
+    if ($this->recurrenceFrequency === "custom" && !$this->recurrenceCustomPeriod) return false;
 
     return true;
   }
