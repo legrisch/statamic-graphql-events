@@ -13,7 +13,7 @@ use Statamic\Support\FileCollection;
 class SettingsManager
 {
   private bool|null $isConfigured = null;
-  private string|null $graphQLEntryTypeName = null;
+  private array|null $graphQLEntryTypeNames = null;
   private Collection|null $collection = null;
   private QueryBuilder|EntryQueryBuilder|null $queryBuilder = null;
 
@@ -50,23 +50,25 @@ class SettingsManager
     return SettingsManager::getInstance()->isConfigured;
   }
 
-  public static function graphQlTypeName(): string|null
+  public static function graphQlTypeNames(): array|null
   {
     if (!SettingsManager::isConfigured()) return null;
 
-    if (SettingsManager::getInstance()->graphQLEntryTypeName) {
-      return SettingsManager::getInstance()->graphQLEntryTypeName;
+    if (SettingsManager::getInstance()->graphQLEntryTypeNames) {
+      return SettingsManager::getInstance()->graphQLEntryTypeNames;
     }
 
     $collection = SettingsManager::collection();
 
     /** @var FileCollection $blueprints */
     $blueprints = $collection->entryBlueprints();
-    $blueprintHandle = config('statamic.graphql-events.blueprint');
-    $blueprint = $blueprints->where('handle', $blueprintHandle)->first();
-    $graphQLEntryTypeName = EntryType::buildName($collection, $blueprint);
-    SettingsManager::getInstance()->graphQLEntryTypeName = $graphQLEntryTypeName;
-    return SettingsManager::getInstance()->graphQLEntryTypeName;
+
+    $graphQLEntryTypeNames = $blueprints->map((function ($blueprint) use (&$collection) {
+      return EntryType::buildName($collection, $blueprint);
+    }))->all();
+
+    SettingsManager::getInstance()->graphQLEntryTypeNames = $graphQLEntryTypeNames;
+    return SettingsManager::getInstance()->graphQLEntryTypeNames;
   }
 
   public static function collection(): Collection|null
@@ -90,8 +92,7 @@ class SettingsManager
     }
 
     $queryBuilder = Entry::query()
-      ->where('collection', config('statamic.graphql-events.collection'))
-      ->where('blueprint', config('statamic.graphql-events.blueprint'));
+      ->where('collection', config('statamic.graphql-events.collection'));
 
     SettingsManager::getInstance()->queryBuilder = $queryBuilder;
     return $queryBuilder;

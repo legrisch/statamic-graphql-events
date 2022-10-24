@@ -16,7 +16,8 @@ class ServiceProvider extends AddonServiceProvider
   public function register()
   {
     $this->mergeConfigFrom(
-      __DIR__ . '/../config/config.php', 'statamic.graphql-events'
+      __DIR__ . '/../config/config.php',
+      'statamic.graphql-events'
     );
   }
 

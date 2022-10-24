@@ -11,15 +11,4 @@ return [
   |
   */
   "collection" => "events",
-
-  /*
-  |--------------------------------------------------------------------------
-  | Events Blueprint
-  |--------------------------------------------------------------------------
-  |
-  | Needs to be the handle of the blueprint that
-  | holds the provided fieldset.
-  |
-  */
-  "blueprint" => "event",
 ];

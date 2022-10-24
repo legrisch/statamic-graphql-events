@@ -24,8 +24,11 @@ class EventsAfterNowQuery extends Query
 
   public function type(): Type
   {
-    $graphQLEntryTypeName = SettingsManager::graphQlTypeName();
-    return GraphQL::type("[$graphQLEntryTypeName!]!");
+    $graphQLEntryTypeNames = SettingsManager::graphQlTypeNames();
+    if (count($graphQLEntryTypeNames) === 1) {
+      return GraphQL::type("[$graphQLEntryTypeNames[0]!]!");
+    }
+    return GraphQL::type("[EntryInterface!]!");
   }
 
   public function args(): array
