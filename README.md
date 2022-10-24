@@ -26,7 +26,7 @@ GraphQL Queries and fields to handle recurring events with ease.
 
 ## Install
 
-``` bash
+```bash
 composer require legrisch/statamic-graphql-events
 ```
 
@@ -36,7 +36,7 @@ composer require legrisch/statamic-graphql-events
 
 - Run `php artisan vendor:publish --tag=statamic.graphql-events --force` to publish the configuration along with the
   provided fieldset "Dates".
-- Add the provided fieldset "Dates" to a blueprint. You may translate the fields to your liking, be sure to keep the
+- Add the provided fieldset "Dates" to the blueprints of your events collection. You may translate the fields to your liking, but be sure to keep the
   handles.
 - Edit the addon configuration: `config/statamic/graphql-events.php`.
 - Open the GraphiQL Editor.
