@@ -35,17 +35,7 @@ class SettingsManager
     if (!is_null(SettingsManager::getInstance()->isConfigured)) {
       return SettingsManager::getInstance()->isConfigured;
     }
-
-    $isConfigured = false;
-
-    $collection = CollectionFacade::findByHandle(config('statamic.graphql-events.collection'));
-    if ($collection) {
-      $blueprints = $collection->entryBlueprints();
-      $blueprintHandle = config('statamic.graphql-events.blueprint');
-      $blueprint = $blueprints->where('handle', $blueprintHandle)->first();
-      if ($blueprint) $isConfigured = true;
-    }
-
+    $isConfigured = CollectionFacade::findByHandle(config('statamic.graphql-events.collection')) !== null;
     SettingsManager::getInstance()->isConfigured = $isConfigured;
     return SettingsManager::getInstance()->isConfigured;
   }
